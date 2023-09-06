@@ -19,8 +19,8 @@ class DCircle(private val radius:Double){
 fun buildDataOrientedShapes(squares:MutableList<DSquare>,rectangles:MutableList<DRectangle>,triangles :MutableList<DTriangle>, circles: MutableList<DCircle>, count: Int){
     val secureRandom = SecureRandom()
 
-    for (i in 0 .. count) {
-        when(secureRandom.nextInt()%4){
+    for (i in 1 .. count) {
+        when(secureRandom.nextInt(Int.MAX_VALUE)%4){
             0 -> squares.add(DSquare(secureRandom.nextDouble()))
             1-> rectangles.add(DRectangle(secureRandom.nextDouble(), secureRandom.nextDouble()))
             2 -> triangles.add(DTriangle(secureRandom.nextDouble(), secureRandom.nextDouble()))

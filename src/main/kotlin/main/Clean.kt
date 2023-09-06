@@ -22,8 +22,8 @@ class Circle(private val radius:Double): Shape() {
 fun buildCleanShapes(count: Int): List<Shape>{
     val secureRandom = SecureRandom()
     val list = mutableListOf<Shape>()
-    for (i in 0 .. count) {
-       when(secureRandom.nextInt()%4){
+    for (i in 1 ..count) {
+       when(secureRandom.nextInt(Int.MAX_VALUE)%4){
            0 -> list.add(Square(secureRandom.nextDouble()))
            1-> list.add(Rectangle(secureRandom.nextDouble(), secureRandom.nextDouble()))
            2 -> list.add(Triangle(secureRandom.nextDouble(), secureRandom.nextDouble()))

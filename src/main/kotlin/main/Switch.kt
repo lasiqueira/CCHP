@@ -22,8 +22,8 @@ data class ShapeUnion(val type: ShapeType, val width:Double, val height:Double)
 fun buildSwitchShapes(count: Int): List<ShapeUnion>{
     val secureRandom = SecureRandom()
     val list = mutableListOf<ShapeUnion>()
-    for (i in 0..count) {
-        val shapeType = (secureRandom.nextInt()%4).toEnum<ShapeType>()
+    for (i in 1..count) {
+        val shapeType = (secureRandom.nextInt(Int.MAX_VALUE)%4).toEnum<ShapeType>()
 
         shapeType?.let {
             val width = secureRandom.nextDouble()

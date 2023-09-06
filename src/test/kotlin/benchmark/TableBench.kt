@@ -5,8 +5,9 @@ import org.openjdk.jmh.annotations.*
 import java.util.concurrent.TimeUnit
 
 @State(Scope.Benchmark)
-@BenchmarkMode(Mode.AverageTime)
+@BenchmarkMode(Mode.All)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
+@Fork
 open class TableBench {
     private lateinit var list: List<ShapeUnion>
     private val count:Int = 1000
