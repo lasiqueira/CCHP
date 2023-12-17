@@ -8,19 +8,14 @@ import java.util.concurrent.TimeUnit
 @BenchmarkMode(Mode.All)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 open class DataOrientedBench {
-
-    private val squares =  mutableListOf<DSquare>()
-    private val rectangles =  mutableListOf<DRectangle>()
-    private val triangles =  mutableListOf<DTriangle>()
-    private val circles =  mutableListOf<DCircle>()
+    private lateinit var shape: DShape
     private val count:Int = 1000
     @Setup
     fun setup(){
-        buildDataOrientedShapes(squares, rectangles, triangles, circles, count)
+       shape = buildDataOrientedShapes(count)
     }
     @Benchmark
     fun totalArea(){
-        dataOrientedTotalArea(squares, rectangles, triangles, circles)
+        dataOrientedTotalArea(shape)
     }
-
 }
