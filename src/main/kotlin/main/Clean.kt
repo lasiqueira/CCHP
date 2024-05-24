@@ -34,3 +34,13 @@ fun buildCleanShapes(count: Int): List<Shape>{
 }
 fun cleanTotalArea(list:List<Shape>)= list.sumOf { it.area() }
 
+fun cleanTotalAreaPattern(list:List<Shape>)= list.sumOf {
+    when(it){
+        is Square ->  it.area()
+        is Circle ->  it.area()
+        is Rectangle ->  it.area()
+        is Triangle ->  it.area()
+        else -> 0.0
+    }
+}
+

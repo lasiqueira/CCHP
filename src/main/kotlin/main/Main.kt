@@ -1,11 +1,10 @@
 package main
 
-import kotlin.system.measureNanoTime
 import kotlin.system.measureTimeMillis
 
 fun main() {
     //setup
-    val count = 10000000
+    val count = 5000000
     val squares = mutableListOf<BSquare>()
     val rectangles = mutableListOf<BRectangle>()
     val triangles = mutableListOf<BTriangle>()
@@ -14,15 +13,21 @@ fun main() {
     val cleanShapes = buildCleanShapes(count)
     val switchShapes = buildSwitchShapes(count)
     val shape = buildDataOrientedShapes(count)
+    val shapeSIMD = buildDataOrientedSIMDShapes(count)
     val tableShapes = buildTableShapes(count)
 
     //measurements
-
+    println("Shape count = $count")
     //clean
     val clean = measureTimeMillis {
         cleanTotalArea(cleanShapes)
     }
     println("Clean: $clean ms")
+    //clean pat
+    val cleanPat = measureTimeMillis {
+        cleanTotalAreaPattern(cleanShapes)
+    }
+    println("Clean Pattern matching: $cleanPat ms")
     //switch
     val switch = measureTimeMillis {
         switchTotalArea(switchShapes)
@@ -44,5 +49,10 @@ fun main() {
         dataOrientedTotalArea(shape)
     }
     println("DataOriented: $dataOriented ms")
+
+    val dataOrientedSIMD = measureTimeMillis {
+        dataOrientedSIMDTotalArea(shapeSIMD)
+    }
+    println("DataOrientedSIMD: $dataOrientedSIMD ms")
 
 }

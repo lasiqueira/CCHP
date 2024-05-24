@@ -3,6 +3,7 @@ package benchmark
 import main.Shape
 import main.buildCleanShapes
 import main.cleanTotalArea
+import main.cleanTotalAreaPattern
 import org.openjdk.jmh.annotations.*
 import java.util.concurrent.TimeUnit
 
@@ -20,6 +21,10 @@ open class CleanBench {
     @Benchmark
     fun totalArea(){
         cleanTotalArea(list)
+    }
+    @Benchmark
+    fun totalAreaPattern(){
+        cleanTotalAreaPattern(list)
     }
 
 }
