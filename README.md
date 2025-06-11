@@ -1,5 +1,8 @@
 # CCHP
 "Clean" Code Horrible Performance inspired benchmarks but in Kotlin
+
+The test is not really apples to apples as I'm randomly generating shapes for each test, but the idea is to show how different approaches can affect performance.
+
 ## Setup
 You are required to have JDK 21 installed;
 

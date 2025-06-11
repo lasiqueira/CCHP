@@ -27,6 +27,36 @@ class DShapeSIMD(
         val totalAreaTriangle = triangleArea()
         return F64Array.of(totalAreaTriangle, totalAreaCircle, totalAreaRectangle, totalAreaSquare).sum()
     }
+
+    fun totalAreaMT() : Double
+    {
+        var totalAreaSquare: Double = 0.0
+        val squareThread = Thread {
+            totalAreaSquare = squareArea()
+        }
+        squareThread.start()
+        var totalAreaRectangle: Double = 0.0
+        val rectangleThread = Thread {
+            totalAreaRectangle = rectangleArea()
+        }
+        rectangleThread.start()
+        var totalAreaCircle: Double = 0.0
+        val circleThread = Thread {
+            totalAreaCircle = circleArea()
+        }
+        circleThread.start()
+        var totalAreaTriangle: Double = 0.0
+        val triangleThread = Thread {
+            totalAreaTriangle = triangleArea()
+        }
+        triangleThread.start()
+        squareThread.join()
+        rectangleThread.join()
+        circleThread.join()
+        triangleThread.join()
+
+        return F64Array.of(totalAreaTriangle, totalAreaCircle, totalAreaRectangle, totalAreaSquare).sum()
+    }
 }
 
 
@@ -72,3 +102,4 @@ fun buildDataOrientedSIMDShapes(count: Int): DShapeSIMD {
 }
 
 fun dataOrientedSIMDTotalArea(shape: DShapeSIMD) = shape.totalArea()
+fun dataOrientedSIMDTotalAreaMT(shape: DShapeSIMD) = shape.totalAreaMT()

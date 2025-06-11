@@ -50,9 +50,19 @@ fun main() {
     }
     println("DataOriented: $dataOriented ms")
 
+    val dataOrientedMT = measureTimeMillis {
+        dataOrientedTotalAreaMT(shape)
+    }
+    println("DataOrientedMT: $dataOrientedMT ms")
+
     val dataOrientedSIMD = measureTimeMillis {
         dataOrientedSIMDTotalArea(shapeSIMD)
     }
     println("DataOrientedSIMD: $dataOrientedSIMD ms")
+
+    val dataOrientedSIMDMT = measureTimeMillis {
+        dataOrientedSIMDTotalAreaMT(shapeSIMD)
+    }
+    println("DataOrientedSIMDMT: $dataOrientedSIMDMT ms")
 
 }

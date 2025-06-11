@@ -34,7 +34,7 @@ class DShape(
         var totalAreaCircle = 0.0f
         while(i < circles.size){
             totalAreaCircle+= circleArea(i).toFloat()
-            i+=2
+            i++
         }
         i=0
         var totalAreaTriangle = 0.0f
@@ -42,6 +42,57 @@ class DShape(
             totalAreaTriangle+= triangleArea(i)
             i+=2
         }
+        return totalAreaSquare + totalAreaRectangle + totalAreaCircle + totalAreaTriangle
+    }
+
+    fun totalAreaParallel() : Float
+    {
+        var totalAreaSquare = 0.0f
+        val squareThread = Thread{
+            var i = 0
+            while(i < squares.size){
+                totalAreaSquare+= squareArea(i)
+                i++
+            }
+        }
+        squareThread.start()
+
+        var totalAreaRectangle = 0.0f
+
+        val rectangleThread = Thread{
+            var i = 0
+            while(i < rectangles.size){
+                totalAreaRectangle+= rectangleArea(i)
+                i+=2
+            }
+        }
+        rectangleThread.start()
+
+        var totalAreaCircle = 0.0f
+        val circleThread = Thread{
+            var i = 0
+            while(i < circles.size){
+                totalAreaCircle+= circleArea(i).toFloat()
+                i++
+            }
+        }
+       circleThread.start()
+
+        var totalAreaTriangle = 0.0f
+        val triangleThread = Thread{
+            var i = 0
+            while(i < triangles.size){
+                totalAreaTriangle+= triangleArea(i)
+                i+=2
+            }
+        }
+
+        triangleThread.start()
+
+        squareThread.join()
+        rectangleThread.join()
+        circleThread.join()
+        triangleThread.join()
         return totalAreaSquare + totalAreaRectangle + totalAreaCircle + totalAreaTriangle
     }
 }
@@ -79,3 +130,4 @@ fun buildDataOrientedShapes(count: Int): DShape {
 }
 
 fun dataOrientedTotalArea(shape: DShape) = shape.totalArea()
+fun dataOrientedTotalAreaMT(shape: DShape) = shape.totalAreaParallel()
