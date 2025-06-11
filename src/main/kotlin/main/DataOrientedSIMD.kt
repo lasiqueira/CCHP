@@ -1,18 +1,15 @@
 package main
 
-import org.jetbrains.bio.viktor.F64Array
-import org.jetbrains.bio.viktor.asF64Array
 import java.security.SecureRandom
 
-
 class DShapeSIMD(
-    private val squares: F64Array,
-    private val rectangles1: F64Array,
-    private val rectangles2: F64Array,
-    private val circles1: F64Array,
-    private val circles2: F64Array,
-    private val triangles1: F64Array,
-    private val triangles2: F64Array
+    private val squares: D64Array,
+    private val rectangles1: D64Array,
+    private val rectangles2: D64Array,
+    private val circles1: D64Array,
+    private val circles2: D64Array,
+    private val triangles1: D64Array,
+    private val triangles2: D64Array
     ) {
     private fun squareArea() = squares.dot(squares)
     private fun rectangleArea() = rectangles1.dot(rectangles2)
@@ -25,7 +22,7 @@ class DShapeSIMD(
         val totalAreaRectangle = rectangleArea()
         val totalAreaCircle = circleArea()
         val totalAreaTriangle = triangleArea()
-        return F64Array.of(totalAreaTriangle, totalAreaCircle, totalAreaRectangle, totalAreaSquare).sum()
+        return D64Array.of(totalAreaTriangle, totalAreaCircle, totalAreaRectangle, totalAreaSquare).sum()
     }
 
     fun totalAreaMT() : Double
@@ -55,7 +52,7 @@ class DShapeSIMD(
         circleThread.join()
         triangleThread.join()
 
-        return F64Array.of(totalAreaTriangle, totalAreaCircle, totalAreaRectangle, totalAreaSquare).sum()
+        return D64Array.of(totalAreaTriangle, totalAreaCircle, totalAreaRectangle, totalAreaSquare).sum()
     }
 }
 
@@ -91,13 +88,13 @@ fun buildDataOrientedSIMDShapes(count: Int): DShapeSIMD {
         }
     }
     return DShapeSIMD(
-        squares = squares.toDoubleArray().asF64Array(),
-        rectangles1 = rectangles1.toDoubleArray().asF64Array(),
-        rectangles2 = rectangles2.toDoubleArray().asF64Array(),
-        circles1 = circles1.toDoubleArray().asF64Array(),
-        circles2 = circles1.toDoubleArray().asF64Array(),
-        triangles1 = triangles1.toDoubleArray().asF64Array(),
-        triangles2 = triangles2.toDoubleArray().asF64Array()
+        squares = D64Array(squares.toDoubleArray()),
+        rectangles1 = D64Array(rectangles1.toDoubleArray()),
+        rectangles2 = D64Array(rectangles2.toDoubleArray()),
+        circles1 = D64Array(circles1.toDoubleArray()),
+        circles2 = D64Array(circles1.toDoubleArray()),
+        triangles1 = D64Array(triangles1.toDoubleArray()),
+        triangles2 = D64Array(triangles2.toDoubleArray())
     )
 }
 

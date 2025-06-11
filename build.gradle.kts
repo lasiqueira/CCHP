@@ -15,7 +15,6 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.bio:viktor:1.2.0")
     testImplementation(kotlin("test"))
     testImplementation("org.openjdk.jmh:jmh-core:1.37")
     testAnnotationProcessor("org.openjdk.jmh:jmh-generator-annprocess:1.37")
@@ -30,6 +29,16 @@ tasks.test {
     useJUnit()
 }
 
+tasks.withType<JavaExec>().configureEach {
+    jvmArgs("--add-modules", "jdk.incubator.vector")
+}
+
+tasks.withType<Test>().configureEach {
+    jvmArgs("--add-modules", "jdk.incubator.vector")
+}
+kotlin {
+    jvmToolchain(21)
+}
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "21"
 }
