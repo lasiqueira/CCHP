@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "2.0.0"
+    kotlin("jvm") version "2.1.21"
     id("me.champeau.jmh") version "0.7.1"
     application
 }
@@ -38,9 +38,6 @@ tasks.withType<Test>().configureEach {
 }
 kotlin {
     jvmToolchain(21)
-}
-tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "21"
 }
 
 application {

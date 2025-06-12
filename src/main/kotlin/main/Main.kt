@@ -4,7 +4,7 @@ import kotlin.system.measureTimeMillis
 
 fun main() {
     //setup
-    val count = 5000000
+    val count = 500000
     val squares = mutableListOf<BSquare>()
     val rectangles = mutableListOf<BRectangle>()
     val triangles = mutableListOf<BTriangle>()
@@ -15,7 +15,19 @@ fun main() {
     val shape = buildDataOrientedShapes(count)
     val shapeSIMD = buildDataOrientedSIMDShapes(count)
     val tableShapes = buildTableShapes(count)
+    //warmup
+    for(i in 1..10){
+        cleanTotalArea(cleanShapes)
+        cleanTotalAreaPattern(cleanShapes)
+        switchTotalArea(switchShapes)
+        tableTotalArea(tableShapes)
+        batchTotalArea(squares, rectangles, triangles, circles)
+        dataOrientedTotalArea(shape)
+        dataOrientedTotalAreaMT(shape)
+        dataOrientedSIMDTotalArea(shapeSIMD)
+        dataOrientedSIMDTotalAreaMT(shapeSIMD)
 
+    }
     //measurements
     println("Shape count = $count")
     //clean
